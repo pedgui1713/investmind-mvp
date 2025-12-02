@@ -2,10 +2,20 @@
 
 import { useState } from 'react';
 import { ArrowRight, Check, Star, TrendingUp, Shield, Zap, Users, Award, ChevronDown, Sparkles } from 'lucide-react';
-import Link from 'next/link';
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleCTAClick = () => {
+    window.location.href = 'https://pay.kirvano.com/d371567d-be5c-4c9e-bd5f-58e424ab7e9d';
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
@@ -20,11 +30,12 @@ export default function LandingPage() {
               InvestMind IA
             </span>
           </div>
-          <Link href="/">
-            <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105">
-              Começar Agora
-            </button>
-          </Link>
+          <button 
+            onClick={handleCTAClick}
+            className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
+          >
+            Começar Agora
+          </button>
         </div>
       </header>
 
@@ -46,13 +57,17 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/">
-                <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-2">
-                  Assinar por R$ 19,90/mês
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </Link>
-              <button className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl font-semibold text-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 transition-all duration-300">
+              <button 
+                onClick={handleCTAClick}
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-2"
+              >
+                Assinar por R$ 19,90/mês
+                <ArrowRight className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={() => scrollToSection('beneficios')}
+                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-xl font-semibold text-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 transition-all duration-300"
+              >
                 Ver Como Funciona
               </button>
             </div>
@@ -153,7 +168,7 @@ export default function LandingPage() {
       </section>
 
       {/* Benefícios */}
-      <section className="py-20 px-4">
+      <section id="beneficios" className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl font-bold text-center mb-4">
             Por Que Escolher o InvestMind IA?
@@ -233,7 +248,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-white dark:bg-gray-800/50 px-4">
+      <section id="preco" className="py-20 bg-white dark:bg-gray-800/50 px-4">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl font-bold text-center mb-4">
             Invista no Seu Futuro Financeiro
@@ -290,11 +305,12 @@ export default function LandingPage() {
                 </li>
               </ul>
 
-              <Link href="/">
-                <button className="w-full py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105">
-                  Assinar Agora por R$ 19,90/mês
-                </button>
-              </Link>
+              <button 
+                onClick={handleCTAClick}
+                className="w-full py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+              >
+                Assinar Agora por R$ 19,90/mês
+              </button>
 
               <div className="mt-4 text-center text-blue-100 text-sm">
                 🔒 Garantia de 7 dias - Cancele quando quiser
@@ -312,7 +328,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-4">
+      <section id="faq" className="py-20 px-4">
         <div className="container mx-auto max-w-3xl">
           <h2 className="text-4xl font-bold text-center mb-4">
             Perguntas Frequentes
@@ -384,12 +400,13 @@ export default function LandingPage() {
             Junte-se a mais de 10.000 investidores que já estão multiplicando seu patrimônio com inteligência artificial
           </p>
           
-          <Link href="/">
-            <button className="px-10 py-5 bg-white text-blue-600 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 inline-flex items-center gap-3">
-              Assinar por R$ 19,90/mês
-              <ArrowRight className="w-6 h-6" />
-            </button>
-          </Link>
+          <button 
+            onClick={handleCTAClick}
+            className="px-10 py-5 bg-white text-blue-600 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 inline-flex items-center gap-3"
+          >
+            Assinar por R$ 19,90/mês
+            <ArrowRight className="w-6 h-6" />
+          </button>
 
           <div className="mt-6 text-blue-100">
             ✓ Garantia de 7 dias • ✓ Configuração em 2 minutos • ✓ Cancele quando quiser

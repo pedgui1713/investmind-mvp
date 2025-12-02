@@ -17,6 +17,10 @@ import {
   loadProfile,
   clearProfile,
 } from '@/lib/investmentEngine';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Crown, Lock, ExternalLink, Check, Download } from 'lucide-react';
+import Link from 'next/link';
 
 // Gera notícias simuladas
 function generateNews(): NewsItem[] {
@@ -98,6 +102,134 @@ function generateOpportunities(): Opportunity[] {
   ];
 }
 
+// Componente de Paywall
+function SubscriptionPaywall() {
+  const handleSubscribe = () => {
+    window.location.href = 'https://pay.kirvano.com/d371567d-be5c-4c9e-bd5f-58e424ab7e9d';
+  };
+
+  const handleDownload = () => {
+    // Simula download do aplicativo
+    // Em produção, você pode gerar um arquivo ou redirecionar para uma página de download
+    const link = document.createElement('a');
+    link.href = window.location.origin; // Link para o próprio app web
+    link.download = 'InvestMind-IA.url';
+    
+    // Cria um arquivo .url (atalho web) para Windows
+    const urlContent = `[InternetShortcut]\nURL=${window.location.origin}\n`;
+    const blob = new Blob([urlContent], { type: 'text/plain' });
+    link.href = URL.createObjectURL(blob);
+    link.download = 'InvestMind-IA.url';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+      <Card className="max-w-2xl w-full shadow-2xl border-2 border-purple-200 dark:border-purple-800">
+        <CardHeader className="text-center space-y-4 pb-8">
+          <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+            <Lock className="w-10 h-10 text-white" />
+          </div>
+          <div>
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Assinatura Necessária
+            </CardTitle>
+            <CardDescription className="text-lg mt-2">
+              Para acessar o InvestMind IA, você precisa de uma assinatura ativa
+            </CardDescription>
+          </div>
+        </CardHeader>
+        
+        <CardContent className="space-y-6">
+          <div className="p-6 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-800">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-2xl font-bold">InvestMind Premium</h3>
+                <p className="text-sm text-muted-foreground">Acesso completo a todas as funcionalidades</p>
+              </div>
+              <div className="text-right">
+                <p className="text-3xl font-bold text-purple-600">R$ 19,90</p>
+                <p className="text-xs text-muted-foreground">por mês</p>
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-green-600" />
+                </div>
+                <span className="text-sm">Análises ilimitadas de mercado com IA</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-green-600" />
+                </div>
+                <span className="text-sm">Notificações de oportunidades em tempo real</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-green-600" />
+                </div>
+                <span className="text-sm">Controle financeiro personalizado</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-green-600" />
+                </div>
+                <span className="text-sm">Suporte prioritário</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                  <Check className="w-4 h-4 text-green-600" />
+                </div>
+                <span className="text-sm">Atualizações e novos recursos</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <Button 
+              onClick={handleSubscribe}
+              className="w-full h-14 text-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg"
+            >
+              <Crown className="w-5 h-5 mr-2" />
+              Assinar Agora
+              <ExternalLink className="w-4 h-4 ml-2" />
+            </Button>
+
+            <Button 
+              onClick={handleDownload}
+              variant="outline"
+              className="w-full h-12 text-base border-2 border-purple-300 hover:bg-purple-50 dark:border-purple-700 dark:hover:bg-purple-900/20"
+            >
+              <Download className="w-5 h-5 mr-2" />
+              Baixar Aplicativo
+            </Button>
+
+            <Link href="/landing" className="block">
+              <Button 
+                variant="ghost"
+                className="w-full h-12 text-base hover:bg-purple-50 dark:hover:bg-purple-900/20"
+              >
+                Ver Página de Vendas
+                <ExternalLink className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+
+          <p className="text-center text-sm text-muted-foreground">
+            Cancele quando quiser. Sem compromisso de longo prazo.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 export default function Home() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [allocation, setAllocation] = useState<AllocationResult | null>(null);
@@ -106,9 +238,38 @@ export default function Home() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
 
   // Carrega perfil do localStorage ao montar
   useEffect(() => {
+    // Verifica se tem assinatura ativa
+    const checkSubscription = () => {
+      if (typeof window !== 'undefined') {
+        // Verifica se tem assinatura ativa no localStorage
+        const subscription = localStorage.getItem('investmind_subscription');
+        
+        if (subscription) {
+          const subData = JSON.parse(subscription);
+          const expiryDate = new Date(subData.expiryDate);
+          const now = new Date();
+          
+          // Se a assinatura ainda não expirou
+          if (expiryDate > now) {
+            setHasActiveSubscription(true);
+          } else {
+            setHasActiveSubscription(false);
+          }
+        } else {
+          // Por padrão, considera que não tem assinatura
+          // Para testar, você pode descomentar a linha abaixo:
+          // localStorage.setItem('investmind_subscription', JSON.stringify({ expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() }));
+          setHasActiveSubscription(false);
+        }
+      }
+    };
+
+    checkSubscription();
+
     const savedProfile = loadProfile();
     if (savedProfile) {
       setProfile(savedProfile);
@@ -166,6 +327,11 @@ export default function Home() {
         </div>
       </div>
     );
+  }
+
+  // Se não tem assinatura ativa, mostra paywall
+  if (!hasActiveSubscription) {
+    return <SubscriptionPaywall />;
   }
 
   // Se não tem perfil, mostra onboarding
